@@ -17,7 +17,7 @@ Ici, j'ai voulu réparer les convertisseurs de temps parce qu'ils renvoies des r
 - "50 cm en in"
 - "50 centimètres en inches"
 
-### Stack et dépendance
+## Stack et dépendance
 - React,
 - Sass (module),
 - [Lodash debounce](https://lodash.com/docs/4.17.15#debounce),
@@ -29,5 +29,5 @@ Ici, j'ai voulu réparer les convertisseurs de temps parce qu'ils renvoies des r
 - [BGJar](https://bgjar.com/)
 
 ## TODO
-[] Progressive WebApp
-[] Ajout de l'Anglais
+- [ ] Progressive WebApp
+- [ ] Ajout de l'Anglais
