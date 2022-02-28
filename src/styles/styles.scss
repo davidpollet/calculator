@@ -33,7 +33,20 @@ body {
 .calculator {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  transition: 300ms ease transform;
+
+  @media screen and(max-height: 400px) {
+    &.input-has-focus {
+      transform: translateY(-50%);
+      .row {
+        opacity: 0;
+      }
+      // Bot
+      + * {
+        transform: translateY(-35%);
+      }
+    }
+  }
 }
 
 header {
@@ -45,6 +58,7 @@ header {
   .row {
     display: inline-flex;
     flex-direction: column;
+    transition: 300ms ease opacity;
   }
 
   h1 {

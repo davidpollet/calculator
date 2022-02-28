@@ -20,6 +20,7 @@ function App () {
   const [result, setResult] = useState('')
   const [operation, setOperation] = useState('')
   const [inputRows, setInputRows] = useState(1)
+  const [inputHasFocus, setinputHasFocus] = useState(false)
 
   const handleTextareaChange = e => {
     setOperation(e.target.value.toLowerCase())
@@ -80,7 +81,7 @@ function App () {
 
   return (
     <>
-      <div className='calculator'>
+      <div className={`calculator ${inputHasFocus ? 'input-has-focus' : ''}`}>
         <Header />
         <div className='operation'>
           <textarea
@@ -91,6 +92,8 @@ function App () {
               }
             }}
             ref={inputRef}
+            onFocus={() => setinputHasFocus(true)}
+            onBlur={() => setinputHasFocus(false)}
             rows={inputRows}
             className='operation-input'
             autoFocus={true}
