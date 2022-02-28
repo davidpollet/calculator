@@ -15,50 +15,32 @@ import isNumber from '../library/functions/number/isNumber'
 import parseOperation from '../utils/calculation/parseOperation'
 import removeAccent from '../library/functions/string/removeAccent'
 
-// UTILS
-
-
-
-// COMPONENTS
-
-// LIBRARY
-
-
-
-
-// STYLES
-
-
-
 function App () {
   const inputRef = useRef()
   const [result, setResult] = useState('')
   const [operation, setOperation] = useState('')
+  const [inputRows, setInputRows] = useState(1)
 
-  const handleTextareaChange = e => setOperation(e.target.value.toLowerCase())
-  const debounceCalc = useMemo(() => debounce(handleTextareaChange, 300), [
-    operation
-  ])
+  const handleTextareaChange = e => {
+    setOperation(e.target.value.toLowerCase())
+  }
+  const debounceProcessOperation = useMemo(
+    () => debounce(handleTextareaChange, 300),
+    [operation]
+  )
 
-  function inputAutoHeight () {
-    if (
-      operation &&
-      inputRef.current.clientHeight < inputRef.current.scrollHeight
-    ) {
-      inputRef.current.setAttribute(
-        'style',
-        `height: ${inputRef.current.scrollHeight}px; border-radius: 1rem;`
-      )
-    } else {
-      inputRef.current.removeAttribute('style')
-    }
+  const countNewLine = string => {
+    return (string && string.match(/\n/g)?.length + 1) || 1
+  }
 
-    if (!operation) inputRef.current.removeAttribute('style')
+  function handleInputRowsChange (inputValue) {
+    const currentInputRowHasChanged = countNewLine(inputValue) !== inputRows
+    if (!currentInputRowHasChanged) return false
+
+    setInputRows(countNewLine(inputValue))
   }
 
   useEffect(() => {
-    inputAutoHeight()
-
     if (operation?.match(OPERATORS_REGEX) || operation?.match(POWER_REGEX)) {
       const res = calc(parseOperation(operation))
       if (isNumber(res)) setResult(formatNumber(res, 5))
@@ -92,7 +74,7 @@ function App () {
 
   useEffect(() => {
     return () => {
-      debounceCalc.cancel()
+      debounceProcessOperation.cancel()
     }
   }, [])
 
@@ -102,9 +84,14 @@ function App () {
         <Header />
         <div className='operation'>
           <textarea
-            onChange={debounceCalc}
+            onChange={debounceProcessOperation}
+            onKeyUp={e => {
+              if (e.key === 'Enter' || e.key === 'Backspace') {
+                handleInputRowsChange(e.target.value)
+              }
+            }}
             ref={inputRef}
-            placeholder='23*(50/2), 150 - 25%, 5cm en mm, …'
+            rows={inputRows}
             className='operation-input'
             autoFocus={true}
           ></textarea>
