@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import styles from './bot.module.scss'
+import styles from './Bot.module.scss'
 
 function Bot (props) {
   const { textContent } = props || ''

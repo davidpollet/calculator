@@ -2,7 +2,7 @@ import * as Icons from './icons'
 
 import React from 'react'
 import ScreenReaderOnly from './ScreenReaderOnly'
-import styles from './mobileKeyboardSwitcher.module.scss'
+import styles from './MobileKeyboardSwitcher.module.scss'
 
 function MobileKeyboardSwitcher ({ inputMode, setInputMode, inputRef }) {
   const isAndroid = navigator.userAgent.toLowerCase().includes('android')
