@@ -1,13 +1,14 @@
-import * as Icons from '../components/icons'
+import * as Icons from './Icons'
 
 import React from 'react'
+import styles from './Header.module.scss'
 
 function Header () {
   return (
-    <header>
+    <header className={styles['app-header']}>
       <div className='row'>
         <h1>
-          <Icons.Calculator />
+          <Icons.Calculator className={styles['app-icon']} />
           Calvin
         </h1>
         <p>Calculez et convertissez des unités comme une recherche Google</p>

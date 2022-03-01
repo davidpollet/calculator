@@ -4,6 +4,7 @@
   position: relative;
   text-align: center;
   transition: 300ms ease transform;
+  z-index: -1;
   &.has-result {
     .result {
       max-width: 100%;

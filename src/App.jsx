@@ -5,8 +5,9 @@ import './styles/styles.scss'
 import { OPERATORS_REGEX, POWER_REGEX } from '../library/regex/CALC_SIGNS_REGEX'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
-import Bot from '../components/bot'
+import Bot from '../components/Bot'
 import Header from '../components/Header'
+import MobileKeyboardSwitcher from '../components/MobileKeyboardSwitcher'
 import calc from '../utils/calculation/calc'
 import convertUnits from '../utils/conversion/convertUnits'
 import debounce from 'lodash/debounce'
@@ -21,6 +22,9 @@ function App () {
   const [operation, setOperation] = useState('')
   const [inputRows, setInputRows] = useState(1)
   const [inputHasFocus, setinputHasFocus] = useState(false)
+  const [inputMode, setInputMode] = useState('numeric')
+  const isTouchScreen =
+    'ontouchstart' in window && window.matchMedia('(max-width: 75em)').matches
 
   const handleTextareaChange = e => {
     setOperation(e.target.value.toLowerCase())
@@ -83,9 +87,11 @@ function App () {
     <>
       <div className={`calculator ${inputHasFocus ? 'input-has-focus' : ''}`}>
         <Header />
+
         <div className='operation'>
           <textarea
             onChange={debounceProcessOperation}
+            aria-label='Votre opération ou conversion'
             onKeyUp={e => {
               if (e.key === 'Enter' || e.key === 'Backspace') {
                 handleInputRowsChange(e.target.value)
@@ -95,11 +101,21 @@ function App () {
             onFocus={() => setinputHasFocus(true)}
             onBlur={() => setinputHasFocus(false)}
             rows={inputRows}
+            inputMode={inputMode}
             className='operation-input'
-            autoFocus={true}
+            placeholder='ex: 580 - 32% ou 55 inch en cm'
+            spellCheck='false'
           ></textarea>
+          {isTouchScreen && (
+            <MobileKeyboardSwitcher
+              inputMode={inputMode}
+              setInputMode={setInputMode}
+              inputRef={inputRef}
+            />
+          )}
         </div>
       </div>
+
       <Bot textContent={result || ''} hasError={!result} />
     </>
   )
