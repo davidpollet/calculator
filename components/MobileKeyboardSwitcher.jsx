@@ -1,7 +1,7 @@
 import * as Icons from './icons'
 
 import React from 'react'
-import ScreenReaderOnly from './screenReaderOnly'
+import ScreenReaderOnly from './ScreenReaderOnly'
 import styles from './mobileKeyboardSwitcher.module.scss'
 
 function MobileKeyboardSwitcher ({ inputMode, setInputMode, inputRef }) {
