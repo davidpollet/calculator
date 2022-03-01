@@ -11,9 +11,11 @@ body {
   @media (device-pixel-ratio: 180dpi) {
     background-image: url('../medias/img/circuit-1200w.png');
   }
+
   @media (max-resolution: 179dpi) {
     background-image: url('../medias/img/circuit-600w.png');
   }
+
   @supports not (device-pixel-ratio: 180dpi) {
     background-image: url('../medias/img/circuit-600w.png');
   }
