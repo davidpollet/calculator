@@ -1,4 +1,4 @@
-import * as Icons from './icons'
+import * as Icons from './Icons'
 
 import React from 'react'
 import VisuallyHidden from './VisuallyHidden'
