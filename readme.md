@@ -1,4 +1,4 @@
-!["Démonstration de l'interface de Calvin Calc"](public/medias/img/calvin-cover.jpg)
+!["Démonstration de l'interface de Calvin Calc"](public/medias/img/calvin-banner.jpg)
 # Calvin Calc
 Calculez et convertissez des unités comme une recherche Google.
 https://calvin-calc.netlify.app/
