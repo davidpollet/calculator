@@ -1,0 +1,12 @@
+svg.icon,
+img.icon {
+  display: inline-block;
+  fill: var(--fill, currentColor);
+  height: var(--icon-size, 1em);
+  stroke: var(--fill, currentColor);
+  stroke-width: 0;
+  transition-duration: 300ms;
+  transition-property: transform, fill, box-shadow;
+  transition-timing-function: ease;
+  width: var(--icon-size, 1em);
+}

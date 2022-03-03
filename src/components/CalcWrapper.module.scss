@@ -1,0 +1,106 @@
+@import '../global-styles/variables';
+@import '../global-styles/mixins';
+
+.calc-input-wrapper {
+  border-radius: var(--radius, 2em);
+  display: flex;
+  font-size: 1.25em;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: $box-shadow-huge;
+  max-width: 80ch;
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  top: 100%;
+  transform: translateY(-1em) translateX(-50%);
+  background: hsl(0, 0%, 90%);
+  transition: 200ms ease all;
+  z-index: 5;
+
+  &.is-touch-screen {
+    .calc-input {
+      padding-left: 2.5rem;
+    }
+    .clear-input {
+      border-radius: var(--radius) 0 0 var(--radius);
+      right: auto;
+      left: 0;
+    }
+  }
+
+  &:focus-within {
+    background: #fff;
+    box-shadow: 0 0 0 10px rgba(#fff, 0.5), $box-shadow-huge;
+  }
+}
+
+.calc-input {
+  background: rgba(#fff, 0);
+  border-radius: inherit;
+  border: 0;
+  color: hsl(0, 0%, 40%);
+  flex-grow: 1;
+  line-height: 1.2;
+  overflow: auto;
+  outline: 0;
+  padding: 0.5em;
+  box-shadow: 0 0 0 0 $theme-color-accent;
+  resize: none;
+  height: calc(1.5em + var(--scroll-height, 1.2em));
+  max-height: 5.5em;
+  @include transition;
+
+  @media (max-width: 48em) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: 48em) {
+    text-align: center;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px $theme-color-accent;
+    color: darken($theme-color-accent, 10%);
+  }
+}
+
+@keyframes scaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.clear-input {
+  align-items: center;
+  background: linear-gradient($theme-color-accent, $theme-color-accent) center
+    center / 0 0 no-repeat transparent;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border: 0;
+  bottom: 0;
+  display: none;
+  color: hsl(0, 0%, 35%);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  right: 0;
+  line-height: 1;
+  opacity: 0.5;
+  padding: 0.5em;
+  position: absolute;
+  top: 0;
+  transform: scale(0.5);
+  transition: 100ms ease all;
+  z-index: 2;
+
+  &:not([hidden='true']) {
+    animation: scaleIn 200ms ease forwards;
+  }
+
+  &:hover,
+  &:focus {
+    background-size: 100% 100%;
+    color: $theme-color-main;
+  }
+}

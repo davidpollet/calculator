@@ -1,0 +1,25 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  transition: 300ms ease transform;
+
+  .app-header {
+    transition: 300ms ease transform;
+  }
+
+  @media screen and(max-height: 400px) {
+    &.input-has-focus {
+      .app-header {
+        transform: translateY(calc(-100% + 2em));
+      }
+
+      .row {
+        opacity: 0;
+      }
+
+      .bot {
+        transform: translateY(-35%);
+      }
+    }
+  }
+}
