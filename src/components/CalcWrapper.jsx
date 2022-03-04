@@ -14,7 +14,7 @@ import formatNumbers from '../utils/helpers/formatNumbers'
 import getConvertionElements from '../utils/helpers/formatConvertion'
 import isNumber from '../utils/helpers/isNumber'
 import isTouchScreen from '../utils/helpers/isTouchScreen'
-import normalizeLetters from '../utils/helpers/removeAccent'
+import normalizeLetters from '../utils/helpers/normalizeLetters'
 import parseOperation from '../utils/helpers/parseOperation'
 import styles from './CalcWrapper.module.scss'
 

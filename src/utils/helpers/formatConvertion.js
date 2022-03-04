@@ -1,4 +1,4 @@
-import normalizeLetters from './removeAccent'
+import normalizeLetters from './normalizeLetters'
 
 function getConvertionElements (operation) {
   let [valueToConvert] = operation.match(/\d*,?\.?\d*\s*?/)
