@@ -2,6 +2,7 @@
 @import '../global-styles/mixins';
 
 .calc-input-wrapper {
+  --radius: 2em;
   border-radius: var(--radius, 2em);
   display: flex;
   font-size: 1.25em;
