@@ -7,7 +7,7 @@
     transition: 300ms ease transform;
   }
 
-  @media screen and(max-height: 400px) {
+  @media screen and (max-height: 400px) {
     &.input-has-focus {
       .app-header {
         transform: translateY(calc(-100% + 2em));
