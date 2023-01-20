@@ -9,6 +9,7 @@ import styles from './Bot.module.scss'
 
 function Bot ({ result, setResult }) {
   const [clipboardUsed, setClipboardUsed] = useState(false)
+  const resultMemo = React.useRef(0)
 
   const botClassNames = clsx([
     'bot',
@@ -18,23 +19,30 @@ function Bot ({ result, setResult }) {
   ])
 
   function handleClipboardCopyClick () {
+    resultMemo.current = result
     setClipboardUsed(true)
     copyToClipboard(result)
   }
 
-  useEffect(async () => {
-    if (!clipboardUsed) return false
-    const resultCopy = result
-    setResult('Copié')
-    const wait = setTimeout(() => {
-      setResult(resultCopy)
+  useEffect(() => {
+    let timer
+    if (!result) {
       setClipboardUsed(false)
-    }, 2000)
-
-    return () => {
-      clearTimeout(wait)
+      return timer && clearTimeout(timer)
     }
-  }, [clipboardUsed])
+
+    if (clipboardUsed) {
+      setResult('Copié')
+
+      timer = setTimeout(() => {
+        setResult(resultMemo.current)
+        setClipboardUsed(false)
+      }, 2000)
+    }
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [result, clipboardUsed, setResult])
 
   return (
     <div className={botClassNames}>
