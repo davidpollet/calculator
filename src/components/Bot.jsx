@@ -1,14 +1,13 @@
 import * as Icons from './Icons'
 
-import React, { useEffect, useState } from 'react'
-
 import Button from './Button'
+import React from 'react'
 import clsx from 'clsx'
 import copyToClipboard from '../utils/helpers/copyToClipboard'
 import styles from './Bot.module.scss'
 
 function Bot ({ result, setResult }) {
-  const [clipboardUsed, setClipboardUsed] = useState(false)
+  const [clipboardUsed, setClipboardUsed] = React.useState(false)
   const resultMemo = React.useRef()
 
   const botClassNames = clsx([
@@ -24,7 +23,7 @@ function Bot ({ result, setResult }) {
     copyToClipboard(result)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     let timer
     if (!result) {
       setClipboardUsed(false)

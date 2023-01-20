@@ -4,22 +4,19 @@ import '../global-styles/reset.scss'
 import '../global-styles/styles.scss'
 import './App.scss'
 
-import React, { useRef, useState } from 'react'
-
 import Bot from '../components/Bot'
 import CalcWrapper from '../components/CalcWrapper'
 import Header from '../components/Header'
+import React from 'react'
 
 function App () {
-  const inputRef = useRef()
-  const [result, setResult] = useState('')
-  const [inputHasFocus, setinputHasFocus] = useState(false)
+  const [result, setResult] = React.useState('')
+  const [inputHasFocus, setinputHasFocus] = React.useState(false)
 
   return (
     <div className={`app-container ${inputHasFocus ? 'input-has-focus' : ''}`}>
       <Header>
         <CalcWrapper
-          inputRef={inputRef}
           result={result}
           setResult={setResult}
           setinputHasFocus={setinputHasFocus}

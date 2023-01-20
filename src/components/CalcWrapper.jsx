@@ -1,11 +1,10 @@
 import * as Icons from './Icons'
 
-import React, { useEffect, useMemo, useState } from 'react'
-
 import CONVERSION_WORD from '../utils/constants/CONVERTION_WORDS_REGEX'
 import MobileKeyboardSwitcher from './MobileKeyboardSwitcher'
 import OPERATORS_REGEX from '../utils/constants/OPERATORS_REGEX'
 import POWER_REGEX from '../utils/constants/POWER_SIGNS_REGEX'
+import React from 'react'
 import VisuallyHidden from './VisuallyHidden'
 import calc from '../utils/helpers/calc'
 import convertUnits from '../utils/helpers/convertUnits'
@@ -18,17 +17,18 @@ import normalizeLetters from '../utils/helpers/normalizeLetters'
 import parseOperation from '../utils/helpers/parseOperation'
 import styles from './CalcWrapper.module.scss'
 
-function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
-  const [operation, setOperation] = useState('')
-  const [inputMode, setInputMode] = useState('numeric')
+function CalcWrapper ({ setResult, setinputHasFocus }) {
+  const [operation, setOperation] = React.useState('')
+  const [inputMode, setInputMode] = React.useState('numeric')
+  const inputRef = React.useRef()
 
   const handleCalcInputChange = e => {
     setOperation(e.target.value.toLowerCase())
   }
 
-  const debounceProcessOperation = useMemo(
+  const debounceProcessOperation = React.useMemo(
     () => debounce(handleCalcInputChange, 300),
-    [operation]
+    []
   )
 
   function handleInputHeightChange (inputValue) {
@@ -52,7 +52,7 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
     setInputHeight(`${inputRef.current.scrollHeight - 32}px`)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!operation) {
       setResult('')
       return
@@ -85,21 +85,20 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
         operationCopy = `${answer}${operation.slice(firstLetterIndex)}`
       }
 
-      const { valueToConvert, unitSrc, unitTarget } = getConvertionElements(
-        operationCopy
-      )
+      const { valueToConvert, unitSrc, unitTarget } =
+        getConvertionElements(operationCopy)
 
       if (valueToConvert && unitSrc && unitTarget) {
         setResult(convertUnits(valueToConvert, unitSrc, unitTarget))
       }
     }
-  }, [operation])
+  }, [operation, inputRef, setResult])
 
-  useEffect(() => {
+  React.useEffect(() => {
     return () => {
       debounceProcessOperation.cancel()
     }
-  }, [])
+  }, [debounceProcessOperation])
 
   return (
     <div
