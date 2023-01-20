@@ -31,27 +31,6 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
     [operation]
   )
 
-  function handleInputHeightChange (inputValue) {
-    const hasScroll =
-      inputRef.current.scrollHeight > inputRef.current.clientHeight
-    const inputscrollHeight = inputRef.current.scrollHeight
-    const setInputHeight = value =>
-      inputRef.current.style.setProperty('--scroll-height', value || '')
-    const setRadius = value =>
-      inputRef.current.parentElement.style.setProperty('--radius', value || '')
-
-    if (!inputValue) {
-      setRadius('')
-      setInputHeight('')
-      return
-    }
-
-    if (!hasScroll) return false
-    if (inputscrollHeight > inputRef.current.clientHeight) setRadius('8px')
-
-    setInputHeight(`${inputRef.current.scrollHeight - 32}px`)
-  }
-
   useEffect(() => {
     if (!operation) {
       setResult('')
@@ -85,9 +64,8 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
         operationCopy = `${answer}${operation.slice(firstLetterIndex)}`
       }
 
-      const { valueToConvert, unitSrc, unitTarget } = getConvertionElements(
-        operationCopy
-      )
+      const { valueToConvert, unitSrc, unitTarget } =
+        getConvertionElements(operationCopy)
 
       if (valueToConvert && unitSrc && unitTarget) {
         setResult(convertUnits(valueToConvert, unitSrc, unitTarget))
@@ -150,6 +128,27 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
       )}
     </div>
   )
+}
+
+function handleInputHeightChange (inputValue) {
+  const hasScroll =
+    inputRef.current.scrollHeight > inputRef.current.clientHeight
+  const inputscrollHeight = inputRef.current.scrollHeight
+  const setInputHeight = value =>
+    inputRef.current.style.setProperty('--scroll-height', value || '')
+  const setRadius = value =>
+    inputRef.current.parentElement.style.setProperty('--radius', value || '')
+
+  if (!inputValue) {
+    setRadius('')
+    setInputHeight('')
+    return
+  }
+
+  if (!hasScroll) return false
+  if (inputscrollHeight > inputRef.current.clientHeight) setRadius('8px')
+
+  setInputHeight(`${inputRef.current.scrollHeight - 32}px`)
 }
 
 export default CalcWrapper
