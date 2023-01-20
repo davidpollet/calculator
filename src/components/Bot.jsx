@@ -22,19 +22,24 @@ function Bot ({ result, setResult }) {
     copyToClipboard(result)
   }
 
-  useEffect(async () => {
-    if (!clipboardUsed) return false
-    const resultCopy = result
-    setResult('Copié')
-    const wait = setTimeout(() => {
-      setResult(resultCopy)
+  useEffect(() => {
+    let timer
+    if (!result) {
       setClipboardUsed(false)
-    }, 2000)
-
-    return () => {
-      clearTimeout(wait)
+      return timer && clearTimeout(timer)
     }
-  }, [clipboardUsed])
+    if (clipboardUsed) {
+      const resultCopy = result
+      setResult('Copié')
+      timer = setTimeout(() => {
+        setResult(resultCopy)
+        setClipboardUsed(false)
+      }, 2000)
+    }
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [result, clipboardUsed])
 
   return (
     <div className={botClassNames}>
