@@ -1,6 +1,6 @@
 import * as Icons from './Icons'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import CONVERSION_WORD from '../utils/constants/CONVERTION_WORDS_REGEX'
 import MobileKeyboardSwitcher from './MobileKeyboardSwitcher'
@@ -26,9 +26,9 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
     setOperation(e.target.value.toLowerCase())
   }
 
-  const debounceProcessOperation = useMemo(
+  const debounceProcessOperation = useCallback(
     () => debounce(handleCalcInputChange, 300),
-    [operation]
+    []
   )
 
   function handleInputHeightChange (inputValue) {
@@ -85,21 +85,20 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
         operationCopy = `${answer}${operation.slice(firstLetterIndex)}`
       }
 
-      const { valueToConvert, unitSrc, unitTarget } = getConvertionElements(
-        operationCopy
-      )
+      const { valueToConvert, unitSrc, unitTarget } =
+        getConvertionElements(operationCopy)
 
       if (valueToConvert && unitSrc && unitTarget) {
         setResult(convertUnits(valueToConvert, unitSrc, unitTarget))
       }
     }
-  }, [operation])
+  }, [operation, inputRef, setResult])
 
   useEffect(() => {
     return () => {
       debounceProcessOperation.cancel()
     }
-  }, [])
+  }, [debounceProcessOperation])
 
   return (
     <div
