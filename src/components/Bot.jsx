@@ -24,7 +24,7 @@ function Bot ({ result, setResult }) {
     copyToClipboard(result)
   }
 
-  useEffect(() => {
+useEffect(() => {
     let timer
     if (!result) {
       setClipboardUsed(false)

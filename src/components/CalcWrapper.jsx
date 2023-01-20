@@ -31,27 +31,6 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
     []
   )
 
-  function handleInputHeightChange (inputValue) {
-    const hasScroll =
-      inputRef.current.scrollHeight > inputRef.current.clientHeight
-    const inputscrollHeight = inputRef.current.scrollHeight
-    const setInputHeight = value =>
-      inputRef.current.style.setProperty('--scroll-height', value || '')
-    const setRadius = value =>
-      inputRef.current.parentElement.style.setProperty('--radius', value || '')
-
-    if (!inputValue) {
-      setRadius('')
-      setInputHeight('')
-      return
-    }
-
-    if (!hasScroll) return false
-    if (inputscrollHeight > inputRef.current.clientHeight) setRadius('8px')
-
-    setInputHeight(`${inputRef.current.scrollHeight - 32}px`)
-  }
-
   useEffect(() => {
     if (!operation) {
       setResult('')
@@ -149,6 +128,27 @@ function CalcWrapper ({ inputRef, setResult, setinputHasFocus }) {
       )}
     </div>
   )
+}
+
+function handleInputHeightChange (inputValue) {
+  const hasScroll =
+    inputRef.current.scrollHeight > inputRef.current.clientHeight
+  const inputscrollHeight = inputRef.current.scrollHeight
+  const setInputHeight = value =>
+    inputRef.current.style.setProperty('--scroll-height', value || '')
+  const setRadius = value =>
+    inputRef.current.parentElement.style.setProperty('--radius', value || '')
+
+  if (!inputValue) {
+    setRadius('')
+    setInputHeight('')
+    return
+  }
+
+  if (!hasScroll) return false
+  if (inputscrollHeight > inputRef.current.clientHeight) setRadius('8px')
+
+  setInputHeight(`${inputRef.current.scrollHeight - 32}px`)
 }
 
 export default CalcWrapper
