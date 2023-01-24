@@ -5,10 +5,12 @@ import React from 'react'
 import clsx from 'clsx'
 import copyToClipboard from '../utils/helpers/copyToClipboard'
 import styles from './Bot.module.scss'
+import { useCalcContext } from '../views/App'
 
-function Bot ({ result, setResult }) {
+function Bot () {
   const [clipboardUsed, setClipboardUsed] = React.useState(false)
   const resultMemo = React.useRef()
+  const { result, setResult } = useCalcContext()
 
   const botClassNames = clsx([
     'bot',

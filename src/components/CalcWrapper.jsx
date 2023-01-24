@@ -16,10 +16,12 @@ import isTouchScreen from '../utils/helpers/isTouchScreen'
 import normalizeLetters from '../utils/helpers/normalizeLetters'
 import parseOperation from '../utils/helpers/parseOperation'
 import styles from './CalcWrapper.module.scss'
+import { useCalcContext } from '../views/App'
 
-function CalcWrapper ({ setResult, setinputHasFocus }) {
+function CalcWrapper ({ setinputHasFocus }) {
   const [operation, setOperation] = React.useState('')
   const [inputMode, setInputMode] = React.useState('numeric')
+  const { setResult } = useCalcContext()
   const inputRef = React.useRef()
 
   const handleCalcInputChange = e => {
